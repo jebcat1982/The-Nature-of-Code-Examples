@@ -464,7 +464,7 @@
 ; Also I could have used a bunch of update-in's here, but since we're changing
 ; literally every attribute of the walker it's easiest to just make a new one.
 (extend-type PerlinWalker Tickable
-  (tick [{:keys [tx ty] :as this}]
+  (tick [{:keys [tx ty]}]
     (->PerlinWalker
         (map-range (noise tx)
                    0 1
@@ -526,8 +526,8 @@
           :as this}]
     (-> this
       (step ox oy)
-      (assoc-in [:x-step-sizes] x-step-sizes)
-      (assoc-in [:y-step-sizes] y-step-sizes))))
+      (assoc :x-step-sizes x-step-sizes
+             :y-step-sizes y-step-sizes))))
 
 ; This walker has a tendency to run off the screen. It might be worth playing
 ; with the min/max step values and the time increment to see if we could fix
