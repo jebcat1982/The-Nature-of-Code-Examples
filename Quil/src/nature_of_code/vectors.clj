@@ -66,10 +66,15 @@
   (sqrt (clojure.core/+ (sq x) (sq y))))
 
 (defn normalize
-  "Normalize the given vector into a unit vector."
+  "Normalize the given vector into a unit vector.
+  
+  If the vector has a magnitude of 0, return it unchanged.
+
+  "
   [v]
   (let [m (magnitude v)]
-    (when-not (zero? m)
+    (if (zero? m)
+      v
       ; For some reason we still get a divide by zero error here very rarely.
       ; Floating point fun?
       (/ v m))))

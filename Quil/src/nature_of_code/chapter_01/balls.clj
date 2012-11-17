@@ -4,53 +4,9 @@
             [nature-of-code.vectors :as v]))
 
 
-(def screen-width 640)
-(def screen-height 200)
 
-(defn setup []
-  (stroke 0)
-  (fill 175)
-  (stroke-weight 2)
-  (frame-rate 40)
-  (background 255)
-  (smooth))
 
-; For the vectorless example we have four pieces of state.
-(def x (ref nil))
-(def y (ref nil))
-(def x-speed (ref nil))
-(def y-speed (ref nil))
 
-(defn setup-vectorless []
-  (setup)
-  (dosync
-    (ref-set x 100)
-    (ref-set y 100)
-    (ref-set x-speed 1)
-    (ref-set y-speed 3.3)))
-
-(defn bound-flip
-  "Negate v if x is lower than zero or greater than the max."
-  [v x max-x]
-  (if (or (neg? x) (> x max-x))
-    (- v)
-    v))
-
-(defn draw-vectorless []
-  (background 255)
-  (dosync
-    (alter x + @x-speed)
-    (alter y + @y-speed)
-    (alter x-speed bound-flip @x screen-width)
-    (alter y-speed bound-flip @y screen-height))
-  (ellipse @x @y 30 30))
-
-(comment
-  (defsketch s-vectorless
-    :title "Vectorless Ball"
-    :setup setup-vectorless
-    :draw draw-vectorless
-    :size [screen-width screen-height]))
 
 ; The vectored version is much nicer.
 (def location (ref nil))

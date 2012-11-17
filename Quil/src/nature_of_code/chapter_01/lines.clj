@@ -4,12 +4,6 @@
             [nature-of-code.vectors :as v]))
 
 
-(def screen-width 640)
-(def screen-height 200)
-
-(defn setup []
-  (smooth)
-  (stroke 0))
 
 (defn draw-sub []
   (background 255)
@@ -19,13 +13,6 @@
         result (v/- mouse center)]
     (translate (/ screen-width 2) (/ screen-height 2))
     (line 0 0 (:x result) (:y result))))
-
-(comment
-  (defsketch s-sub
-    :title "Subtraction of Vectors"
-    :draw draw-sub
-    :setup setup
-    :size [screen-width screen-height]))
 
 (defn draw-mult []
   (background 255)
