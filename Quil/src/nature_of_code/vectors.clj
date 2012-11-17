@@ -48,10 +48,25 @@
    (reduce - (- v1 v2) more)))
 
 (defn *
-  "Scale the vector by the given constant amount."
-  [[x y] c]
-  (->PVector (clojure.core/* c x)
-             (clojure.core/* c y)))
+  "Scale the vector by the given constant amount.
+  
+  With no arguments, returns a vector of [1, 1].
+
+  With one argument, returns that vector.
+
+  With two or more arguments, scales the vector by the given constants and
+  returns the result.
+
+  "
+  ([]
+   (->PVector 1 1))
+  ([v]
+   v)
+  ([[x y] c] 
+   (->PVector (clojure.core/* c x)
+              (clojure.core/* c y)))
+  ([v c & more]
+   (reduce * (* v c) more)))
 
 (defn /
   "Scale the vector by the inverse of the given constant amount."
